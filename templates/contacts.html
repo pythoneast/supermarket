@@ -8,7 +8,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
 
     <title>Contacts</title>
   </head>
@@ -19,9 +18,28 @@
               <h1 class="text-white text-center mt-5">Contacts</h1>
                 <form method="POST" class="d-block mx-auto text-center">
                     {% csrf_token %}
+                    <!--{{ contacts_form.as_ul }}-->
+                    {{ contacts_form.non_field_errors }}
+                    <div class="form-group">
+                        {{ contacts_form.name.errors }}
+                        {{ contacts_form.name }}
+                    </div>
+                    <div class="form-group">
+                        {{ contacts_form.email.errors }}
+                        {{ contacts_form.email }}
+                    </div>
+                    <div class="form-group">
+                        {{ contacts_form.message.errors }}
+                        {{ contacts_form.message }}
+                    </div>
+                    <button type="submit" class="btn btn-success">Отправить</button>
+                </form>
+
+                <form method="POST" class="mt-5 d-block mx-auto text-center">
+                    {% csrf_token %}
                     <input type="text" class="form-control" placeholder="Имя" name="name"/>
                     <input type="email" class="form-control" placeholder="Email" name="email"/>
-                    <input type="password" class="form-control"  placeholder="Пароль"/>
+                    <textarea></textarea>
                     <button type="submit" class="btn btn-success">Отправить</button>
                 </form>
           </div>

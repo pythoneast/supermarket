@@ -13,7 +13,7 @@
     <title>Hello, Miami!</title>
   </head>
   <body>
-    <h1 class="text-white text-center mt-5">Hello, Miami!</h1>
+    <h1 class="text-white text-center mt-5">Hello, {% if request.user.is_authenticated %}{{ request.user.username|title }}{% else %}Miami{% endif %}!</h1>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

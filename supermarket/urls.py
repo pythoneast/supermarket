@@ -2,13 +2,22 @@ from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
-from .views import main_page, contacts
+from .views import (
+    main_page,
+    contacts,
+    login_page,
+    logout_page,
+    register_page
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page, name='main-page'),
     path('products/', include('applications.products.urls')),
     path('contacts/', contacts, name='contacts'),
+    path('login/', login_page, name='login-page'),
+    path('logout/', logout_page, name='logout-page'),
+    path('register/', register_page, name='register-page'),
 ]
 
 if settings.DEBUG:

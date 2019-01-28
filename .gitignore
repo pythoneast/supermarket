@@ -1,4 +1,9 @@
 /static
 /media
 .idea/
-
+.gitignore.swp
+supermarket/__pycache__/forms.cpython-37.pyc
+supermarket/__pycache__/urls.cpython-37.pyc
+supermarket/__pycache__/views.cpython-37.pyc
+supermarket/__pycache__/urls.cpython-37.pyc
+supermarket/__pycache__/views.cpython-37.pyc
