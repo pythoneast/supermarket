@@ -7,3 +7,7 @@ supermarket/__pycache__/urls.cpython-37.pyc
 supermarket/__pycache__/views.cpython-37.pyc
 supermarket/__pycache__/urls.cpython-37.pyc
 supermarket/__pycache__/views.cpython-37.pyc
+*.pyc
+applications/products/__pycache__/models.cpython-37.pyc
+applications/products/__pycache__/views.cpython-37.pyc
+

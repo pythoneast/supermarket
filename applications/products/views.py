@@ -20,11 +20,11 @@ class ProductDetail(DetailView):
 
 
 def product_list(request):
-    products = Product.objects.all().order_by('-id')
+    products = Product.instock.all().order_by('-id')
     data = [1, 'asfs', 435.3]
     return render(request, 'products/list.html', locals())
 
 
 def product_detail(request, id):
-    product = get_object_or_404(Product, id=id)
+    product = get_object_or_404(Product, id=id, in_stock=True)
     return render(request, 'products/detail.html', locals())
