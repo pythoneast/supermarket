@@ -9,31 +9,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <title>Products list</title>
+    <title>Products detail</title>
   </head>
   <body>
   <div class="container">
       <div class="row">
           <div class="col-12">
-              <h1 class="text-center mt-5">Products list</h1>
+              <h1 class="text-center mt-5">Products detail</h1>
           </div>
       </div>
       <div class="row">
-          {% for product in object_list %}
-              <div class="col-12 mx-auto d-block text-center mt-5">
-                  <hr>
-                  <a href="{% url 'products:product-slug-detail-cbv' product.slug %}">{{ product.title }}</a>
-                  <p>{{ product.description }}</p>
-                    {% if product.productimage_set.first %}
-                        <img src="{{ product.productimage_set.first.image.url }}" height="100px" width="auto"/>
-                    {% else %}
-                      <p>Нет фотографии</p>
-                    {% endif %}
-                  <hr>
-              </div>
-          {% empty %}
-          {% endfor %}
+          <div class="col-12 col-md-4 mx-auto d-block text-center mt-5">
+              <h4>{{ object.title }}</h4>
+              <p>{{ object.description }}</p>
+              <p><b>{{ object.price }} сом</b></p>
+              {% for image in product.productimage_set.all %}
+                <img src="{{ image.image.url }}" height="100px" width="auto"/>
+              {% empty %}
+                  <p>Нет фотографий</p>
+              {% endfor %}
+          </div>
       </div>
+
   </div>
 
     <!-- Optional JavaScript -->

@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
@@ -5,7 +6,9 @@ from applications.products.models import Product
 
 
 class ProductList(ListView):
-    model = Product
+    queryset = Product.instock.all()
+    # queryset = Product.objects.all()
+    # model = Product
     template_name = 'products/list-cbv.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -17,6 +20,11 @@ class ProductList(ListView):
 class ProductDetail(DetailView):
     model = Product
     template_name = 'products/detail-cbv.html'
+
+
+class ProductSlugDetail(DetailView):
+    model = Product
+    template_name = 'products/detail-slug-cbv.html'
 
 
 def product_list(request):

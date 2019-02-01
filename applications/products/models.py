@@ -2,6 +2,9 @@ import random
 import os
 
 from django.db import models
+from django.db.models.signals import pre_save, post_save, pre_delete, post_delete
+from django.dispatch import receiver
+from .utils import unique_slug_generator
 
 
 class InStockManager(models.Manager):
@@ -26,8 +29,9 @@ class Product(models.Model):
     title = models.CharField(max_length=255, db_index=True)
     description = models.TextField()
     price = models.PositiveIntegerField()
-    quantity = models.PositiveIntegerField()
+    quantity = models.PositiveIntegerField(default=0)
     in_stock = models.BooleanField(default=True, db_index=True)
+    slug = models.SlugField(blank=True, unique=True)
 
     objects = models.Manager()
     instock = InStockManager()
@@ -46,3 +50,18 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f'{self.product.title}.jpg'
+
+
+def product_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+    instance.in_stock = False if instance.quantity == 0 else True
+
+
+# def product_post_delete_receiver(sender, instance, *args, **kwargs):
+#     Product.objects.all().delete()
+
+
+pre_save.connect(product_pre_save_receiver, sender=Product)
+# post_delete.connect(product_post_delete_receiver, sender=Product)
