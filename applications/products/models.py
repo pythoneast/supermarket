@@ -6,6 +6,8 @@ from django.db.models.signals import pre_save, post_save, pre_delete, post_delet
 from django.dispatch import receiver
 from .utils import unique_slug_generator
 
+from applications.categories.models import Category
+
 
 class InStockManager(models.Manager):
     def get_queryset(self):
@@ -32,6 +34,7 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     in_stock = models.BooleanField(default=True, db_index=True)
     slug = models.SlugField(blank=True, unique=True)
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
 
     objects = models.Manager()
     instock = InStockManager()

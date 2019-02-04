@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # Мои приложения
     'applications.products',
+    'applications.categories',
 ]
 
 MIDDLEWARE = [
