@@ -5,10 +5,18 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
 {% endblock css %}
 {% block content %}
-    <h1 class="text-white text-center mt-5">Hello, {% if request.user.is_authenticated %}{{ request.user.username|title }}{% else %}Miami{% endif %}!</h1>
+    <div class="container">
+        <div class="row">
+            <div class="d-block mx-auto col-12 col-sm-10 col-lg-8">
+                <h1 class="text-center mt-5">
+                    Hello, {% if request.user.is_authenticated %}{{ request.user.username|title }}{% else %}Miami{% endif %}!
+                </h1>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 {% block js %}
-    <script>
+<!--    <script>
         alert('Hello world!');
-    </script>
+    </script> -->
 {% endblock js %}

@@ -1,5 +1,8 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Register Page{% endblock title %}
+{% block css %}{% endblock css %}
+{% block content %}
+    {% include 'includes/form.html' with title="Register Page" %}
+{% endblock content %}
+{% block js %}{% endblock js %}

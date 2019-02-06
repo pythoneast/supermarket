@@ -1,9 +1,12 @@
 import random
 import os
+from datetime import timezone
 
 from django.db import models
 from django.db.models.signals import pre_save, post_save, pre_delete, post_delete
 from django.dispatch import receiver
+from django.urls import reverse
+
 from .utils import unique_slug_generator
 
 from applications.categories.models import Category
@@ -28,6 +31,8 @@ def upload_image_path(instance, filename):
 
 
 class Product(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255, db_index=True)
     description = models.TextField()
     price = models.PositiveIntegerField()
@@ -41,6 +46,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('products:product-slug-detail-cbv', kwargs={'slug': self.slug})
 
 
 class ProductImage(models.Model):

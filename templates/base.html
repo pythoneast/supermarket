@@ -11,6 +11,33 @@
     {% block css %}{% endblock css %}
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'main-page' %}">Main Page <span class="sr-only">(current)</span></a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'contacts' %}">Contacts <span class="sr-only">(current)</span></a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'products:product-list-cbv' %}">Products <span class="sr-only">(current)</span></a>
+          </li>
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'login-page' %}">Login <span class="sr-only">(current)</span></a>
+          </li>
+            <li>
+                <a class="nav-link" href="{% url 'register-page' %}">Register</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout-page' %}">Logout <span class="sr-only">(current)</span></a>
+          </li>
+            {% endif %}
+        </ul>
+      </div>
+    </nav>
     {% block content %}{% endblock content %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
