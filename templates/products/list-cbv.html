@@ -9,6 +9,11 @@
               <h1 class="text-center mt-5">Products list</h1>
           </div>
       </div>
+    <div class="row">
+        <div class="col-12 text-center mt-3">
+            <a href="{% url 'products:create_product' %}" class="btn btn-success">Add new product</a>
+        </div>
+    </div>
       <div class="row">
           {% for object in object_list %}
               {% include 'includes/cart.html' with product=object %}
@@ -16,5 +21,28 @@
           {% endfor %}
       </div>
   </div>
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto d-block text-center">
+                <div class="pagination mx-auto d-block">
+                    <span class="step-links">
+                        {% if object_list.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+                        </span>
+
+                        {% if object_list.has_next %}
+                            <a href="?page={{ object_list.next_page_number }}">next</a>
+                            <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 {% block js %}{% endblock js %}
