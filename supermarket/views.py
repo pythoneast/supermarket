@@ -65,3 +65,6 @@ def register_page(request):
             return redirect(reverse('main-page'))
     return render(request, 'account/register.html', locals())
 
+
+def learn_bootstrap(request):
+    return render(request, 'bootstrap-learn.html', locals())

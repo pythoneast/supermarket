@@ -7,7 +7,8 @@ from .views import (
     contacts,
     login_page,
     logout_page,
-    register_page
+    register_page,
+    learn_bootstrap,
 )
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
     path('login/', login_page, name='login-page'),
     path('logout/', logout_page, name='logout-page'),
     path('register/', register_page, name='register-page'),
+    path('learn_bs/', learn_bootstrap, name='learn-bootstrap'),
 ]
 
 if settings.DEBUG:
