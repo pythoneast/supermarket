@@ -44,15 +44,6 @@
           </div>
       </div>
   </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 d-block mx-auto text-center">
-                <form method="post" action="{% url 'products:delete_product_test' product.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success">Удалить продукт</button>
-                </form>
-            </div>
-        </div>
-    </div>
+
 {% endblock content %}
 {% block js %}{% endblock js %}
