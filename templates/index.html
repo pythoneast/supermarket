@@ -7,7 +7,7 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="d-none d-sm-none d-md-block col-md-3 border border-primary">
+            <div class="d-none d-sm-none d-md-block col-md-3">
                 <ul class="list-group">
                     {% for c in categories %}
                     <li class="list-group-item"><a href="#">{{ c.title }}</a></li>
@@ -16,7 +16,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="col-12 col-md-9 p-0 mx-0 border border-warning">
+            <div class="col-12 col-md-9 p-0 mx-0">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

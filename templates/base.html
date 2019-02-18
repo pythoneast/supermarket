@@ -42,8 +42,8 @@
           </li>
             {% endif %}
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2 font-weight-bold" type="search" placeholder="Search">
+        <form class="form-inline" method="get" action="{% url 'search:search-page' %}">
+            <input name="q" class="form-control mr-sm-2 font-weight-bold" type="search" placeholder="Search" {% if request.GET.q %}value="{{ request.GET.q }}"{% endif %}>
             <button class="btn btn-danger my-2 my-sm-0 font-weight-bold" type="submit">Search</button>
         </form>
       </div>

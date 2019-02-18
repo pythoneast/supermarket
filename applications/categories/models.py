@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.signals import pre_save
 
-from applications.products.utils import unique_slug_generator
+from applications.products.models import unique_slug_generator
 
 
 class Category(models.Model):

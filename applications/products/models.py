@@ -1,10 +1,8 @@
 import random
 import os
-from datetime import timezone
 
 from django.db import models
-from django.db.models.signals import pre_save, post_save, pre_delete, post_delete
-from django.dispatch import receiver
+from django.db.models.signals import pre_save
 from django.urls import reverse
 
 from .utils import unique_slug_generator
