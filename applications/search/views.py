@@ -7,20 +7,21 @@ from applications.products.models import Product
 
 
 class SearchView(ListView):
-    model = Product
-    template_name = 'products/list-cbv.html'
+    template_name = 'search/index.html'
+
+    def get_queryset(self):
+        request = self.request
+        # exact iexact contains icontains
+        query = request.GET.get('q') # None
+        if query:
+            products = Product.instock.search(query)
+        else:
+            products = Product.instock.none()
+        paginator = Paginator(products, 20)
+        page = self.request.GET.get('page')
+        return paginator.get_page(page)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        request = self.request
-        query = request.GET.get('q')
-        print(query)
-        # exact iexact contains icontains
-
-        products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).distinct().order_by('-id')
-        print(products)
-        paginator = Paginator(products, 10)
-        page = self.request.GET.get('page')
-        context['object_list'] = paginator.get_page(page)
-        # context['data'] = [1, 345, 'hello']
+        context['query'] = self.request.GET.get('q')
         return context

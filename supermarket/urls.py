@@ -16,6 +16,7 @@ urlpatterns = [
     path('', main_page, name='main-page'),
     path('products/', include('applications.products.urls')),
     path('search/', include('applications.search.urls')),
+    path('cart/', include('applications.cart.urls')),
     path('contacts/', contacts, name='contacts'),
     path('login/', login_page, name='login-page'),
     path('logout/', logout_page, name='logout-page'),

@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<form class="form-inline" method="get" action="{% url 'search:search-page' %}">
+  <input name="q" class="form-control font-weight-bold" type="search" placeholder="Search" {% if request.GET.q %}value="{{ request.GET.q }}"{% endif %}>
+  <button class="btn btn-danger font-weight-bold" type="submit">Search</button>
+</form>

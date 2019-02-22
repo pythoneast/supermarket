@@ -14,7 +14,7 @@ def unique_slug_generator(instance, new_slug=None):
     else:
         slug = slugify(instance.title, allow_unicode=True)
 
-    Klass = instance.__class__
+    Klass = instance.__class__  # Product Tag
     qs_exists = Klass.objects.filter(slug=slug).exists()
     if qs_exists:
         new_slug = '{slug}-{randstr}'.format(

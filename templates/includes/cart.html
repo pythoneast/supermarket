@@ -1,14 +1,14 @@
 <div class="col-12 mx-auto d-block text-center mt-3">
-      <hr>
-      <p>
-          <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-      </p>
-        <p>{{ product.created_at|timesince }}</p>
-      <p>{{ product.description|truncatewords:4 }}</p>
-        {% if product.productimage_set.first %}
-            <img src="{{ product.productimage_set.first.image.url }}" height="100px" width="auto"/>
-        {% else %}
-          <p>Нет фотографии</p>
-        {% endif %}
-      <hr>
-  </div>
+  <hr>
+  <p>
+    <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+  </p>
+  <p>{{ product.created_at|timesince }}</p>
+  <p>{{ product.description|truncatewords:4 }}</p>
+  {% if product.productimage_set.first %}
+    <img src="{{ product.productimage_set.first.image.url }}" height="100px" width="auto"/>
+  {% else %}
+    <p>Нет фотографии</p>
+  {% endif %}
+  <hr>
+</div>

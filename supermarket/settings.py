@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Мои приложения
-    'applications.products',
+    'applications.cart',
     'applications.categories',
+    'applications.products',
+    'applications.search',
+    'applications.tags',
 ]
 
 MIDDLEWARE = [

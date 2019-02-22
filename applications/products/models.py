@@ -2,6 +2,7 @@ import random
 import os
 
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import pre_save
 from django.urls import reverse
 
@@ -13,6 +14,17 @@ from applications.categories.models import Category
 class InStockManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().exclude(in_stock=False)
+
+    def search(self, query):
+        return self.get_queryset().filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(price__icontains=query) |
+            Q(tags__title__icontains=query)
+        ).distinct().order_by('-id')
+
+    def get_by_slug_name(self, slug):
+        return self.get_queryset().get(slug=slug)
 
 
 def get_filename_ext(filepath):
