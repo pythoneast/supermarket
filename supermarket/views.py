@@ -41,10 +41,10 @@ def login_page(request):
     if request.user.is_authenticated:
         return redirect(reverse('main-page'))
 
+    print(request.POST)
     form = LoginForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-            print(form.cleaned_data)
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
@@ -52,7 +52,6 @@ def login_page(request):
                 login(request, user)
                 return redirect(reverse('main-page'))
             else:
-
                 return redirect(reverse('login-page'))
     return render(request, 'account/login.html', locals())
 
