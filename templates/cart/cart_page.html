@@ -4,6 +4,23 @@
   <div class="container py-5">
     <div class="col-12 d-block mx-auto text-center">
       <h1>Cart Page</h1>
+      <h3>Total price: {{ cart_obj.id }}</h3>
+      <h3>Total price: {{ cart_obj.subtotal }}</h3>
+      <h3>Total price: {{ cart_obj.total }}</h3
+    </div>
+  </div>
+  <div class="container py-5">
+    <div class="col-12 d-block mx-auto text-center">
+      {% for product in cart_obj.products.all %}
+        <h1>{{ forloop.counter }}</h1>
+        <h1>{{ product.title }}</h1>
+        <p>{{ product.price }}</p>
+        {% for image in product.productimage_set.all %}
+          <img src="{{ image.image.url }}" height="100"/>
+          {% empty %}
+          {% endfor %}
+      {% empty %}
+      {% endfor %}
     </div>
   </div>
 {% endblock %}

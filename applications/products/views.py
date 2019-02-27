@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 from django.forms import inlineformset_factory
 
+from applications.cart.models import Cart
 from applications.products.forms import ProductForm, ProductImageForm, ProductTestForm
 from applications.products.models import Product, ProductImage
 
@@ -34,6 +35,12 @@ class ProductSlugDetail(DetailView):
     model = Product
     template_name = 'products/detail-slug-cbv.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        request = self.request
+        cart_obj, is_new = Cart.objects.get_or_new(request)
+        context['cart_obj'] = cart_obj
+        return context
 
 def product_list(request):
     products = Product.instock.all().order_by('-id')

@@ -41,8 +41,34 @@
 
                   <p>Нет фотографий</p>
               {% endfor %}
+              <p>{{ cart_obj }}</p>
+              <p>{{ cart_obj.user }}</p>
+
+              <p>{{ cart_obj.products.all }}</p>
           </div>
       </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        {% if object not in cart_obj.products.all %}
+          <form method="post" action="{% url 'cart:update' %}">
+            {% csrf_token %}
+            Товара нет в корзине. Не хотели бы вы его добавить?
+            <input type="hidden" name="product_id" value="{{ object.id }}"/>
+            <button type="submit" class="btn btn-success">Добавить</button>
+          </form>
+        {% else %}
+          <form method="post" action="{% url 'cart:update' %}">
+            {% csrf_token %}
+            Товар есть в корзине. Не хотели бы вы его удалить?
+            <input type="hidden" name="product_id" value="{{ object.id }}"/>
+            <button type="submit" class="btn btn-danger">Удалить</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
   </div>
 
 {% endblock content %}

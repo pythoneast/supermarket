@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.signals import pre_save, m2m_changed
 
 from applications.products.models import Product
 
@@ -42,6 +43,7 @@ class Cart(models.Model):
     products = models.ManyToManyField(Product, blank=True, related_name='carts')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    subtotal = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     total = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=OPENED)
 
@@ -49,3 +51,30 @@ class Cart(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+def cart_total_m2m_receiver(sender, instance, action, *args, **kwargs):
+    if action in ['post_add', 'post_remove', 'post_clear']:
+        products = instance.products.all()
+        total = 0
+        for x in products:
+            total += x.price
+        if instance.subtotal != total:
+            instance.subtotal = total
+            instance.save()
+
+m2m_changed.connect(
+    cart_total_m2m_receiver,
+    sender=Cart.products.through
+)
+
+def total_price_pre_save_receiver(sender, instance, *args, **kwargs):
+    if instance.subtotal != 0:
+        instance.total = instance.subtotal + 100
+    else:
+        instance.total = 0
+
+pre_save.connect(
+    total_price_pre_save_receiver,
+    sender=Cart
+)
