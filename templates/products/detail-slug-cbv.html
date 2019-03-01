@@ -32,41 +32,23 @@
                 </div>
                 <div class="row mt-3">
 
-              {% for image in product.productimage_set.all %}
-                    <div class="{% if product.productimage_set.count == 1 %}col-12{% elif product.productimage_set.count == 2 %}col-md-6{% elif product.productimage_set.count >= 3 %}col-md-4{% endif %}">
-                  <img src="{{ image.image.url }}" height="100px" width="auto"/>
+                  {% for image in product.productimage_set.all %}
+                        <div class="{% if product.productimage_set.count == 1 %}col-12{% elif product.productimage_set.count == 2 %}col-md-6{% elif product.productimage_set.count >= 3 %}col-md-4{% endif %}">
+                      <img src="{{ image.image.url }}" height="100px" width="auto"/>
+                        </div>
+                  {% empty %}
                     </div>
-              {% empty %}
-                </div>
 
-                  <p>Нет фотографий</p>
-              {% endfor %}
-              <p>{{ cart_obj }}</p>
-              <p>{{ cart_obj.user }}</p>
-
-              <p>{{ cart_obj.products.all }}</p>
+                      <p>Нет фотографий</p>
+                  {% endfor %}
           </div>
       </div>
   </div>
 
-  <div class="container">
+  <div class="container mt-5">
     <div class="row">
-      <div class="col-12">
-        {% if object not in cart_obj.products.all %}
-          <form method="post" action="{% url 'cart:update' %}">
-            {% csrf_token %}
-            Товара нет в корзине. Не хотели бы вы его добавить?
-            <input type="hidden" name="product_id" value="{{ object.id }}"/>
-            <button type="submit" class="btn btn-success">Добавить</button>
-          </form>
-        {% else %}
-          <form method="post" action="{% url 'cart:update' %}">
-            {% csrf_token %}
-            Товар есть в корзине. Не хотели бы вы его удалить?
-            <input type="hidden" name="product_id" value="{{ object.id }}"/>
-            <button type="submit" class="btn btn-danger">Удалить</button>
-          </form>
-        {% endif %}
+      <div class="col-12 d-block mx-auto text-center">
+          {% include 'snippets/cart-update.html' with product=object %}
       </div>
     </div>
   </div>

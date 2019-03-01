@@ -2,25 +2,43 @@
 
 {% block content %}
   <div class="container py-5">
-    <div class="col-12 d-block mx-auto text-center">
-      <h1>Cart Page</h1>
-      <h3>Total price: {{ cart_obj.id }}</h3>
-      <h3>Total price: {{ cart_obj.subtotal }}</h3>
-      <h3>Total price: {{ cart_obj.total }}</h3
-    </div>
-  </div>
-  <div class="container py-5">
-    <div class="col-12 d-block mx-auto text-center">
-      {% for product in cart_obj.products.all %}
-        <h1>{{ forloop.counter }}</h1>
-        <h1>{{ product.title }}</h1>
-        <p>{{ product.price }}</p>
-        {% for image in product.productimage_set.all %}
-          <img src="{{ image.image.url }}" height="100"/>
-          {% empty %}
-          {% endfor %}
-      {% empty %}
-      {% endfor %}
+    <div class="row">
+      <div class="col-12 d-block mx-auto text-center">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Product name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in cart_obj.products.all %}
+              <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></td>
+                <td>{{ product.price }}</td>
+                <td>
+                  {% include 'snippets/cart-update.html' with product=product in_cart=True %}
+                </td>
+              </tr>
+            {% endfor %}
+            <tr>
+              <th colspan="2" class="text-right">Subtotal:</th>
+              <th>{{ cart_obj.subtotal }}
+                <svg height="20px" viewBox="0 0 512 512" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="m256 151c23.863281 0 45.457031 14.132812 55.015625 36.007812l27.488281-12.015624c-14.332031-32.796876-46.714844-53.992188-82.503906-53.992188-49.625 0-90 40.375-90 90s40.375 90 90 90c35.789062 0 68.171875-21.195312 82.503906-53.992188l-27.488281-12.015624c-9.558594 21.875-31.152344 36.007812-55.015625 36.007812-33.085938 0-60-26.914062-60-60s26.914062-60 60-60zm0 0"/><path d="m181 331h150v30h-150zm0 0"/><path d="m256 0c-140.960938 0-256 115.050781-256 256 0 140.960938 115.050781 256 256 256 140.960938 0 256-115.050781 256-256 0-140.960938-115.050781-256-256-256zm0 482c-124.617188 0-226-101.382812-226-226s101.382812-226 226-226 226 101.382812 226 226-101.382812 226-226 226zm0 0"/><path d="m256 61c-107.523438 0-195 87.476562-195 195s87.476562 195 195 195 195-87.476562 195-195-87.476562-195-195-195zm0 360c-90.980469 0-165-74.019531-165-165s74.019531-165 165-165 165 74.019531 165 165-74.019531 165-165 165zm0 0"/></svg>
+              </th>
+            </tr>
+            <tr>
+              <th colspan="2" class="text-right">Subtotal:</th>
+              <th>{{ cart_obj.total }}
+                <svg height="20px" viewBox="0 0 512 512" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="m256 151c23.863281 0 45.457031 14.132812 55.015625 36.007812l27.488281-12.015624c-14.332031-32.796876-46.714844-53.992188-82.503906-53.992188-49.625 0-90 40.375-90 90s40.375 90 90 90c35.789062 0 68.171875-21.195312 82.503906-53.992188l-27.488281-12.015624c-9.558594 21.875-31.152344 36.007812-55.015625 36.007812-33.085938 0-60-26.914062-60-60s26.914062-60 60-60zm0 0"/><path d="m181 331h150v30h-150zm0 0"/><path d="m256 0c-140.960938 0-256 115.050781-256 256 0 140.960938 115.050781 256 256 256 140.960938 0 256-115.050781 256-256 0-140.960938-115.050781-256-256-256zm0 482c-124.617188 0-226-101.382812-226-226s101.382812-226 226-226 226 101.382812 226 226-101.382812 226-226 226zm0 0"/><path d="m256 61c-107.523438 0-195 87.476562-195 195s87.476562 195 195 195 195-87.476562 195-195-87.476562-195-195-195zm0 360c-90.980469 0-165-74.019531-165-165s74.019531-165 165-165 165 74.019531 165 165-74.019531 165-165 165zm0 0"/></svg>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 {% endblock %}
