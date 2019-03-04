@@ -14,6 +14,7 @@ from .views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page, name='main-page'),
+    path('api/', include('applications.api.urls')),
     path('products/', include('applications.products.urls')),
     path('search/', include('applications.search.urls')),
     path('cart/', include('applications.cart.urls')),

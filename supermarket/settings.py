@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Мои приложения
     'applications.cart',
     'applications.categories',
+    'applications.orders',
     'applications.products',
     'applications.search',
     'applications.tags',
