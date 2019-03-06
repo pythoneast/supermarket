@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-12 d-block mx-auto text-center">
+        <h1>Оформить заказ</h1>
+        <p>Сумма доставки: {{ order.shipment_total }}</p>
+        <p>Сумма: {{ order.total }}</p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

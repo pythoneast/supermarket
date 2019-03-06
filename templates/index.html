@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_tags %}
 {% block title %}Hello, Miami!{% endblock title %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
@@ -59,6 +60,52 @@
         </div>
     </div>
 
+{#    <div class="container">#}
+{#      <div class="row">#}
+{#        <div class="col-12" class="d-block mx-auto text-center">#}
+{#          {% for category in categories_list %}#}
+{#              {{ category.title }}#}
+{#          {% empty %}#}
+{#              No categories#}
+{#          {% endfor %}#}
+{#          <form method="post" enctype="multipart/form-data" action="{% url 'products:create_product' %}">#}
+{#                    {% csrf_token %}#}
+{#                    {{ form.as_p }}#}
+{#                    <table class="table">#}
+{#                        {{ formset.management_form }}#}
+{#                        {{ formset.non_form_errors }}#}
+{#                        {% for form in formset.forms %}#}
+{#                            {% if forloop.first %}#}
+{#                                <thead>#}
+{#                                <tr>#}
+{#                                    {% for field in form.visible_fields %}#}
+{#                                        <th>{{ field.label|capfirst }}</th>#}
+{#                                    {% endfor %}#}
+{#                                </tr>#}
+{#                                </thead>#}
+{#                            {% endif %}#}
+{#                            <tr class="formset_row">#}
+{#                                {% for field in form.visible_fields %}#}
+{#                                    <td>#}
+{#                                    {% if forloop.first %}#}
+{#                                        {% for hidden in form.hidden_fields %}#}
+{#                                            {{ hidden }}#}
+{#                                        {% endfor %}#}
+{#                                    {% endif %}#}
+{##}
+{#                                    {{ field.errors.as_ul }}#}
+{#                                    {{ field }}#}
+{#                                    </td>#}
+{#                                {% endfor %}#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{#                    </table>#}
+{#                    <button type="submit" class="btn btn-success d-block mx-auto">Create a product</button>#}
+{#                </form>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+
     <div class="container">
         <div class="row infinite-container">
             {% for product in products %}
@@ -70,9 +117,9 @@
                       <p>Нет фотографии</p>
                     {% endif %}
                   <div class="card-body">
-                    <h5 class="card-title">{{ product.title }}</h5>
+                    <h5 class="card-title">{% upper_string product.title %}</h5>
                     <p class="card-text">{{ product.description|truncatewords:1 }}</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Посмотреть</a>
                   </div>
                 </div>
             </div>
