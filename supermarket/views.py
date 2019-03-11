@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from applications.categories.models import Category
 from applications.products.models import Product
-from .forms import ContactsForm, LoginForm, RegistrationForm
+from .forms import ContactsForm
 
 User = get_user_model()
 
@@ -35,47 +35,6 @@ def contacts(request):
         if 'gmail.com' not in data.get('email'):
             print('Only gmail accounts')
     return render(request, 'contacts.html', locals())
-
-
-def login_page(request):
-    if request.user.is_authenticated:
-        return redirect(reverse('main-page'))
-
-    print(request.POST)
-    form = LoginForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user:
-                login(request, user)
-                return redirect(reverse('main-page'))
-            else:
-                return redirect(reverse('login-page'))
-    return render(request, 'account/login.html', locals())
-
-
-def logout_page(request):
-    logout(request)
-    return redirect(reverse('main-page'))
-
-
-def register_page(request):
-    if request.user.is_authenticated:
-        return redirect(reverse('main-page'))
-
-    form = RegistrationForm(request.POST or None)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            user = User.objects.create_user(username=form.cleaned_data.get('username'),
-                                            email=form.cleaned_data.get('email'),
-                                            password=form.cleaned_data.get('password'))
-            print(user)
-            login(request, user)
-            return redirect(reverse('main-page'))
-    return render(request, 'account/register.html', locals())
 
 
 def learn_bootstrap(request):

@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'easy_thumbnails',
 
     # Мои приложения
+    'applications.accounts',
     'applications.cart',
     'applications.categories',
     'applications.orders',

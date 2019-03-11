@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load custom_tags %}
+{% load thumbnail %}
 {% block title %}Hello, Miami!{% endblock title %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
@@ -112,7 +113,8 @@
             <div class="col-12 col-sm-6 col-md-4 my-5 infinite-item">
                 <div class="card d-block mx-auto text-center py-5" style="width: 18rem;">
                     {% if product.productimage_set.first %}
-                        <img  alt="супермаркет ФРУНЗЕ" src="{{ product.productimage_set.first.image.url }}" height="150px" width="150px"/>
+                      {% thumbnail product.productimage_set.first.image 150x150 crop as thumb %}
+                        <img  alt="супермаркет ФРУНЗЕ" src="{{ thumb.url }}"/>
                     {% else %}
                       <p>Нет фотографии</p>
                     {% endif %}

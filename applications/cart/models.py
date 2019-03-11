@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models.signals import pre_save, m2m_changed
@@ -70,7 +72,7 @@ m2m_changed.connect(
 
 def total_price_pre_save_receiver(sender, instance, *args, **kwargs):
     if instance.subtotal != 0:
-        instance.total = instance.subtotal + 100
+        instance.total = Decimal(instance.subtotal) * Decimal(1.08)
     else:
         instance.total = 0
 

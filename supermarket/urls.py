@@ -2,12 +2,14 @@ from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
-from .views import (
-    main_page,
-    contacts,
+from applications.accounts.views import (
     login_page,
     logout_page,
     register_page,
+)
+from .views import (
+    main_page,
+    contacts,
     learn_bootstrap,
 )
 
