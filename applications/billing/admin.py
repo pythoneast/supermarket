@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from applications.billing.models import BillingProfile, GuestBillingProfile
+from applications.accounts.models import GuestEmail
+from applications.billing.models import BillingProfile
 
 
 class BillingProfileAdmin(admin.ModelAdmin):
@@ -9,7 +10,7 @@ class BillingProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(BillingProfile, BillingProfileAdmin)
 
-class GuestBillingProfileAdmin(admin.ModelAdmin):
+class GuestEmailAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(GuestBillingProfile, GuestBillingProfileAdmin)
+admin.site.register(GuestEmail, GuestEmailAdmin)

@@ -1,14 +1,14 @@
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
 
-from applications.billing.models import GuestBillingProfile
+from applications.accounts.models import GuestEmail
 
 User = get_user_model()
 
 
 class BillingEmailForm(forms.ModelForm):
     class Meta:
-        model = GuestBillingProfile
+        model = GuestEmail
         fields = ('email',)
 
 class LoginForm(forms.Form):

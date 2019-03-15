@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.http import is_safe_url
 
 from applications.accounts.forms import LoginForm, RegistrationForm, BillingEmailForm
-from applications.billing.models import GuestBillingProfile
+from applications.accounts.models import GuestEmail
 
 User = get_user_model()
 
@@ -61,7 +61,7 @@ def guest_email_view(request):
     form = BillingEmailForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():
         email = form.cleaned_data.get('email')
-        guest_email_obj = form.save()
+        guest_email_obj = GuestEmail.objects.create(email=email)
         request.session['guest_email_id'] = guest_email_obj.id
         if redirect_path and is_safe_url(redirect_path, request.get_host()):
             return redirect(str(redirect_path))
