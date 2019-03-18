@@ -23,6 +23,12 @@ def login_page(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
+
+            try:
+                del request.session['guest_email_id']
+            except:
+                pass
+
             if redirect_path and is_safe_url(redirect_path, request.get_host()):
                 return redirect(str(redirect_path))
             else:

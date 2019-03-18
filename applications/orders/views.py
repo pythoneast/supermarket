@@ -11,16 +11,19 @@ from applications.orders.models import Order
 def checkout_page(request):
     cart, is_new = Cart.objects.get_or_new(request)
     order_obj = None
+
     if is_new or cart.products.count() == 0:
         return redirect(reverse('cart:cart-page'))
-    else:
-        order, is_new = Order.objects.get_or_create(cart=cart)
 
     user = request.user
+    billing_profile = None
     guest_user_id = request.session.get('guest_email_id')
+    login_form = LoginForm()
+    email_form = BillingEmailForm()
+    email_action_url = reverse('guest-email-view')
 
     if user.is_authenticated:
-        billing_profile = BillingProfile.objects.get_or_create(
+        billing_profile, is_new = BillingProfile.objects.get_or_create(
             user=user, email=user.email)
 
     elif guest_user_id:
@@ -31,8 +34,7 @@ def checkout_page(request):
     else:
         pass
 
-    login_form = LoginForm()
-    email_form = BillingEmailForm()
-    email_action_url = reverse('guest-email-view')
+    if billing_profile:
+        order_obj = Order.objects.get_or_new(billing_profile, cart)
     return render(request, 'orders/checkout.html', locals())
 
