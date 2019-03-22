@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 
+from applications.addresses.models import Address
 from applications.billing.models import BillingProfile
 from applications.cart.models import Cart
 from applications.products.models import Product
@@ -21,7 +22,10 @@ class OrderManager(models.Manager):
     def get_or_new(self, billing_profile, cart):
         new = False
         qs = self.get_queryset().filter(
-            billing_profile=billing_profile, cart=cart, active=True)
+            billing_profile=billing_profile,
+            cart=cart,
+            active=True,
+            status='created')
         if qs.count() == 1:
             order_obj = qs.first()
         else:
@@ -29,10 +33,11 @@ class OrderManager(models.Manager):
                 billing_profile=billing_profile,
                 cart=cart)
             new = True
-        return order_obj
+        return order_obj, new
 
 class Order(models.Model):
     billing_profile = models.ForeignKey(BillingProfile, on_delete=models.SET_NULL, blank=True, null=True)
+    address = models.ForeignKey(Address, on_delete=models.SET_NULL, blank=True, null=True)
     order_id = models.CharField(max_length=100, unique=True, blank=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='orders')
     active = models.BooleanField(default=True)
@@ -52,6 +57,19 @@ class Order(models.Model):
         self.total = order_total
         self.save()
         return order_total
+
+    def can_be_completed(self):
+        billing_profile = self.billing_profile
+        address = self.address
+        total = self.total
+        if billing_profile and address and total > 0:
+            return True
+        return False
+
+    def complete(self):
+        self.status = 'paid'
+        self.save(update_fields=['status'])
+        self.cart.close()
 
 def pre_save_order_id_receiver(sender, instance, *args, **kwargs):
     if not instance.order_id:

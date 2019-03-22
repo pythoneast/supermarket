@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 
     # Мои приложения
     'applications.accounts',
+    'applications.addresses',
+    'applications.billing',
     'applications.cart',
     'applications.categories',
     'applications.orders',
@@ -141,3 +143,11 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_PASSWORD = 'your-password'
+EMAIL_HOST_USER = 'your-email'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

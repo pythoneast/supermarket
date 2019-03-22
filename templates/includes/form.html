@@ -2,9 +2,19 @@
     <div class="row">
         <div class="col-12 col-sm-10 col-lg-6 d-block mx-auto text-center">
             <h1>{{ title }}</h1>
-            <form method="post">
+            <form method="post" action="{% if action_url %}{{ action_url }}{% else %}{% url 'login-page' %}{% endif %}">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% if next_url %}
+                  <input type="hidden" name="next" value="{{ next_url }}"/>
+                {% endif %}
+                {{ form.non_field_errors }}
+                {% for field in form.visible_fields %}
+                  <div class="fieldWrapper">
+                      {{ field.errors }}
+                      {{ field.label_tag }} {{ field }}
+                  </div>
+              {% endfor %}
+
                 <button type="submit">Submit</button>
             </form>
         </div>

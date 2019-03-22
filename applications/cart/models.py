@@ -13,7 +13,7 @@ class CartManager(models.Manager):
     def get_or_new(self, request):
         new = False
         cart_id = request.session.get('cart_id', None)  # get data from session
-        qs = self.get_queryset().filter(id=cart_id)
+        qs = self.get_queryset().filter(id=cart_id, status='op')
         if qs.count() == 1:
             cart_obj = qs.first()
             if request.user.is_authenticated and not cart_obj.user:
@@ -53,6 +53,10 @@ class Cart(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    def close(self):
+        self.status = 'cl'
+        self.save(update_fields=['status'])
 
 
 def cart_total_m2m_receiver(sender, instance, action, *args, **kwargs):

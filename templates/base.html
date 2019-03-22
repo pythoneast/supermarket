@@ -44,7 +44,9 @@
       {% endif %}
         <li>
           <a class="nav-link text-white" href="{% url 'cart:cart-page' %}">
-            <i class="fab fa-opencart" style="font-size: 25px"> <span class="bg-danger" style="padding: 5px 10px; border-radius: 100%">{{ request.session.cart_items }}</span></i>
+            <i class="fab fa-opencart" style="font-size: 25px">
+              {% if request.session.cart_items %}<span class="bg-danger" style="padding: 5px 10px; border-radius: 100%">{{ request.session.cart_items }}</span>{% endif %}
+            </i>
           </a>
         </li>
     </ul>
