@@ -3,6 +3,7 @@
 {% block title %}Register Page{% endblock title %}
 {% block css %}{% endblock css %}
 {% block content %}
-    {% include 'includes/form.html' with title="Register Page" %}
+    {% url 'register-page' as register_url %}
+    {% include 'includes/form.html' with title="Register Page" action_url=register_url %}
 {% endblock content %}
 {% block js %}{% endblock js %}

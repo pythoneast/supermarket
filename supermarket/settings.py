@@ -12,18 +12,26 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+import environ
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+env = environ.Env(
+    SECRET_KEY=str,
+    DEBUG=(bool, True),
+)
+
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'b)!u_x#h7q5_=%dt2!z(lv^c0_xhro(jk0fbt(7^z3b@lc-vo%'
+SECRET_KEY = env('SECRET_KEY', default='b)!u_x#h7q5_=%dt2!z(lv^c0_xhro(jk0fbt(7^z3b@lc-vo%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', default=True)
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -48,6 +56,7 @@ INSTALLED_APPS = [
     'applications.cart',
     'applications.categories',
     'applications.orders',
+    'applications.postman',
     'applications.products',
     'applications.search',
     'applications.tags',
@@ -91,9 +100,9 @@ WSGI_APPLICATION = 'supermarket.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'supermarket',
-        'USER': 'misha_manager',
-        'PASSWORD': 'ilovepython_misha',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -146,8 +155,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = 'your-password'
-EMAIL_HOST_USER = 'your-email'
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
+
+
+
+
+
+

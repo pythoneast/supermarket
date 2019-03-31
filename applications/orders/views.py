@@ -1,3 +1,7 @@
+import threading
+import multiprocessing
+import time
+
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -9,14 +13,23 @@ from applications.addresses.models import Address
 from applications.billing.models import BillingProfile
 from applications.cart.models import Cart
 from applications.orders.models import Order
+from applications.postman.tasks import send_user_email_task
 
 
-def send_user_email(title, message, email):
+def multi_run_wrapper(args):
+   return send_user_email(*args)
+
+def send_user_email(title, message, email=None):
     send_mail(
         title,
         message,
         email,
-        ['akylova.erkaiym@gmail.com'],
+        ['eldosnursultan@gmail.com',
+         'akylova.erkaiym@gmail.com',
+         'aliaskar.isakov@gmail.com',
+         'aktan.r.a@gmail.com',
+         'alymbekovdastan1@gmail.com',
+         'dinstamaly@gmail.com',],
         fail_silently=False,
     )
     return True
@@ -51,7 +64,24 @@ def checkout_page(request):
             del request.session['cart_items']
             title = "Успешное оформление заказа"
             message = "Здравствуйте, Эркайым! Ваш заказ успешно оформлен. В течение 15 минут с Вами свяжется наш менеджер! Спасибо за покупку"
-            send_user_email(title, message, email=None)
+            start = time.time()
+
+            # celery 0.001636
+            send_user_email_task.delay(title, message)
+
+            # Многопоточность 0.0006
+            # my_thread = threading.Thread(target=send_user_email, args=(title, message))
+            # my_thread.start()
+
+            # Мультипроцессинг 2.7
+            # pool = multiprocessing.Pool(1)
+            # pool.map(multi_run_wrapper, [(title, message),])
+
+            # Без асинхронности 2.2
+            # send_user_email(title, message, email=None)
+            end = time.time()
+            delta = end - start
+            print(f'Timing: {delta}')
             return redirect('success-page')
         errors.append('Заказ не может быть оформлен!')
     return render(request, 'orders/checkout.html', locals())

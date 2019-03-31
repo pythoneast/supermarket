@@ -3,9 +3,9 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
 from applications.accounts.views import (
-    login_page,
-    logout_page,
-    register_page,
+    LoginView,
+    MyLogoutView,
+    RegisterView,
     guest_email_view,
 )
 from .views import (
@@ -25,9 +25,10 @@ urlpatterns = [
     path('cart/', include('applications.cart.urls')),
     path('addresses/', include('applications.addresses.urls')),
     path('contacts/', contacts, name='contacts'),
-    path('login/', login_page, name='login-page'),
-    path('logout/', logout_page, name='logout-page'),
-    path('register/', register_page, name='register-page'),
+    path('login/', LoginView.as_view(), name='login-page'),
+    # path('logout/', logout_page, name='logout-page'),
+    path('logout/', MyLogoutView.as_view(), name='logout-page'),
+    path('register/', RegisterView.as_view(), name='register-page'),
     path('register/email/', guest_email_view, name='guest-email-view'),
     path('learn_bs/', learn_bootstrap, name='learn-bootstrap'),
     path('success_page/', success_page_view, name='success-page'),
