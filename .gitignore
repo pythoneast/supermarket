@@ -1,6 +1,8 @@
 led / optimized / DLL files
 __pycache__/
 *.py[cod]
+*.pyc
+*.python-37.pyc
 *$py.class
 
 # C extensions
@@ -124,3 +126,4 @@ dmypy.json
 .idea/
 media/
 static/
+

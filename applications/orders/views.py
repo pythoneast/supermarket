@@ -5,6 +5,7 @@ import time
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from applications.accounts.forms import LoginForm, BillingEmailForm
 from applications.accounts.models import GuestEmail
@@ -62,7 +63,7 @@ def checkout_page(request):
             order_obj.complete()
             del request.session['cart_id']
             del request.session['cart_items']
-            title = "Успешное оформление заказа"
+            title = _("Order successfully completed!")
             message = "Здравствуйте, Эркайым! Ваш заказ успешно оформлен. В течение 15 минут с Вами свяжется наш менеджер! Спасибо за покупку"
             start = time.time()
 
