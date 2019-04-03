@@ -19,32 +19,32 @@ msgstr ""
 
 #: applications/orders/views.py:66
 msgid "Order successfully completed!"
-msgstr "Буйрутманыз ийгиликтүү аяктады"
+msgstr "Буйрутмыныз муваппәқийәтлик билән өтти!"
 
 #: templates/base.html:25
 msgid "Main Page"
-msgstr "Баш бет"
+msgstr "Баш варак"
 
 #: templates/base.html:28
 msgid "Contacts"
-msgstr "Байланышуу"
+msgstr "Контактс"
 
 #: templates/base.html:31
 msgid "Products"
-msgstr "Буюмдар"
+msgstr "Рәхт"
 
 #: templates/base.html:35
 msgid "Login"
-msgstr "Кируу"
+msgstr "Логин"
 
 #: templates/base.html:38
 msgid "Register"
-msgstr "Каттоо"
+msgstr "Регистрация"
 
 #: templates/base.html:42
 msgid "Logout"
-msgstr "Чыгуу"
+msgstr "Логаут"
 
 #: templates/cart/cart_page.html:59
 msgid "Product name"
-msgstr "Продукттун аты"
+msgstr "Рәхтнин исми"

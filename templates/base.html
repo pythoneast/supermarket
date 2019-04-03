@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,24 +22,24 @@
   <div class="collapse navbar-collapse font-weight-bold" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link text-white" href="{% url 'main-page' %}">Main Page <span class="sr-only">(current)</span></a>
+        <a class="nav-link text-white" href="{% url 'main-page' %}">{% trans 'Main Page' %}<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="{% url 'contacts' %}">Contacts <span class="sr-only">(current)</span></a>
+        <a class="nav-link text-white" href="{% url 'contacts' %}">{% trans 'Contacts' %} <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="{% url 'products:product-list-cbv' %}">Products <span class="sr-only">(current)</span></a>
+        <a class="nav-link text-white" href="{% url 'products:product-list-cbv' %}">{% trans 'Products' %}<span class="sr-only">(current)</span></a>
       </li>
       {% if not request.user.is_authenticated %}
         <li class="nav-item text-white">
-          <a class="nav-link text-white" href="{% url 'login-page' %}">Login <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-white" href="{% url 'login-page' %}">{% trans 'Login' %}<span class="sr-only">(current)</span></a>
         </li>
         <li>
-          <a class="nav-link text-white" href="{% url 'register-page' %}">Register</a>
+          <a class="nav-link text-white" href="{% url 'register-page' %}">{% trans 'Register' %}</a>
         </li>
       {% else %}
         <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'logout-page' %}">Logout <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-white" href="{% url 'logout-page' %}">{% trans 'Logout' %}<span class="sr-only">(current)</span></a>
         </li>
       {% endif %}
         <li>
@@ -48,6 +48,22 @@
               {% if request.session.cart_items %}<span class="bg-danger" style="padding: 5px 10px; border-radius: 100%">{{ request.session.cart_items }}</span>{% endif %}
             </i>
           </a>
+        </li>
+        <li>
+          <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}" >
+            <select name="language">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              {% for language in languages %}
+                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                  {{ language.name_local }} ({{ language.code }})
+                </option>
+              {% endfor %}
+            </select>
+            <input type="submit" value="Go" />
+          </form>
         </li>
     </ul>
   {% include 'snippets/search_block.html' %}

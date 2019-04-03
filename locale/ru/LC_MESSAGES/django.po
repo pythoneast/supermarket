@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-01 15:05+0000\n"
+"POT-Creation-Date: 2019-04-03 14:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,30 @@ msgstr ""
 #: applications/orders/views.py:66
 msgid "Order successfully completed!"
 msgstr "Заказ успешно завершен!"
+
+#: templates/base.html:25
+msgid "Main Page"
+msgstr "Главная"
+
+#: templates/base.html:28
+msgid "Contacts"
+msgstr "Контакты"
+
+#: templates/base.html:31
+msgid "Products"
+msgstr "Продукты"
+
+#: templates/base.html:35
+msgid "Login"
+msgstr "Авторизация"
+
+#: templates/base.html:38
+msgid "Register"
+msgstr "Регистрация"
+
+#: templates/base.html:42
+msgid "Logout"
+msgstr "Выйти"
 
 #: templates/cart/cart_page.html:59
 msgid "Product name"

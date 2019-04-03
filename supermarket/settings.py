@@ -14,6 +14,9 @@ import os
 
 import environ
 
+import django.conf.locale
+from django.conf import global_settings
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -65,6 +68,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,6 +90,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'supermarket.context_processors.categories_context',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -131,12 +136,36 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
+EXTRA_LANG_INFO = {
+    'ky': {
+        'bidi': False, # right-to-left
+        'code': 'ky',
+        'name': 'Kyrgyz',
+        'name_local': 'Кыргызча', #unicode codepoints here
+    },
+    'ug': {
+        'bidi': False,  # right-to-left
+        'code': 'ug',
+        'name': 'Uighur',
+        'name_local': 'Уйгурчә',  # unicode codepoints here
+    },
+}
+
+
+LANG_INFO = dict(django.conf.locale.LANG_INFO.items())
+LANG_INFO.update(EXTRA_LANG_INFO.items())
+django.conf.locale.LANG_INFO = LANG_INFO
+
+# Languages using BiDi (right-to-left) layout
+global_settings.LANGUAGES.extend([('ky', 'Кыргызча'), ('ug', 'Уйгурчә')])
+
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('en', 'English'),
     ('ru', 'Russian'),
     ('ky', 'Kyrgyz'),
+    ('ug', 'Uyghur')
 )
 
 LOCALE_PATHS = (
