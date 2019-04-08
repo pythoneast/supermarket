@@ -37,7 +37,10 @@ SECRET_KEY = env('SECRET_KEY', default='b)!u_x#h7q5_=%dt2!z(lv^c0_xhro(jk0fbt(7^
 DEBUG = env('DEBUG', default=True)
 
 ALLOWED_HOSTS = [
+    'localhost',
     '127.0.0.1',
+    '.supermarket.ga',
+    '138.197.185.217',
 ]
 
 
