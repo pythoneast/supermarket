@@ -1,0 +1,10 @@
+[Unit]
+Description=gunicorn socket for supermarket django
+
+[Socket]
+ListenStream=/run/gunicorn/supermarket_socket
+
+[Install]
+WantedBy=sockets.target
+
+

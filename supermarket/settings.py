@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = environ.Env(
     SECRET_KEY=str,
-    DEBUG=(bool, True),
+    DEBUG=(bool, False),
 )
 
 environ.Env.read_env()
@@ -39,7 +39,7 @@ DEBUG = env('DEBUG', default=True)
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '.supermarket.ga',
+    '.superdukon.ml',
     '138.197.185.217',
 ]
 
@@ -190,8 +190,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static_root"),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

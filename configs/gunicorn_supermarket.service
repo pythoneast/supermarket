@@ -1,0 +1,27 @@
+[Unit]
+Description=gunicorn daemon for supermarket project
+Requires=gunicorn_supermarket.socket
+After=network.target
+
+[Service]
+PermissionsStartOnly=True
+User=pythoneast
+Group=www-data
+RuntimeDirectory=gunicorn
+RuntimeDirectoryMode=0775
+PIDFile=/run/gunicorn/pid
+WorkingDirectory=/home/pythoneast/supermarket
+ExecStart=/home/pythoneast/supermarket/env/bin/gunicorn \
+	--access-logfile /home/pythoneast/supermarket/logs/access.log \
+	--error-logfile /home/pythoneast/supermarket/logs/error.log \
+	--pid /run/gunicorn/pid \
+	--env DJANGO_SETTINGS_MODULE=supermarket.settings_prod \
+	--workers 3 \
+	--bind unix:/run/gunicorn/supermarket_socket supermarket.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
