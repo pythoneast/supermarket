@@ -139,6 +139,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', 'Russian'),
+    ('ky', 'Kyrgyz'),
+    ('ug', 'Uyghur'),
+)
+
 EXTRA_LANG_INFO = {
     'ky': {
         'bidi': False, # right-to-left
@@ -160,16 +167,7 @@ LANG_INFO.update(EXTRA_LANG_INFO.items())
 django.conf.locale.LANG_INFO = LANG_INFO
 
 # Languages using BiDi (right-to-left) layout
-global_settings.LANGUAGES.extend([('ky', 'Кыргызча'), ('ug', 'Уйгурчә')])
-
-LANGUAGE_CODE = 'en'
-
-LANGUAGES = (
-    ('en', 'English'),
-    ('ru', 'Russian'),
-    ('ky', 'Kyrgyz'),
-    ('ug', 'Uyghur')
-)
+global_settings.LANGUAGES = global_settings.LANGUAGES + [('ky', 'Кыргызча'), ('ug', 'Уйгурчә')]
 
 LOCALE_PATHS = (
    os.path.join(BASE_DIR, 'locale'),
